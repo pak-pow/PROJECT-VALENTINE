@@ -1,10 +1,13 @@
 // ======================================================
+// GLOBAL VARIABLES
+// ======================================================
+let scaleFactor = 1; // Tracks how much the YES button has grown
+
+// ======================================================
 // MAIN ACTION: ACCEPT PROPOSAL
 // Triggered when the YES button is clicked
 // ======================================================
 function acceptProposal() {
-
-
     const sound = document.getElementById("yesSound");
     sound.currentTime = 0; // Restart sound if clicked again
     sound.play();
@@ -68,15 +71,26 @@ function acceptProposal() {
 // ======================================================
 function moveButton() {
     const noBtn = document.getElementById("noBtn");
+    const yesBtn = document.getElementById("yesBtn"); 
+    const container = document.querySelector(".container"); // CRITICAL: Get the card container
+
+    // MAKE THE YES BUTTON BIGGER
+    scaleFactor += 0.2; // Increase size by 20% each time
+    yesBtn.style.transform = `scale(${scaleFactor})`;
 
     /* --------------------------------------------------
-       Calculate safe movement boundaries
+       Calculate safe movement boundaries INSIDE THE CARD
        -------------------------------------------------- */
-    const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
-    const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
+    // Get the dimensions of the card
+    const containerRect = container.getBoundingClientRect();
+    const btnRect = noBtn.getBoundingClientRect();
+
+    // logic: Card Width - Button Width = Safe Area
+    const maxWidth = containerRect.width - btnRect.width; 
+    const maxHeight = containerRect.height - btnRect.height;
 
     /* --------------------------------------------------
-       Generate random screen positions
+       Generate random positions within the card
        -------------------------------------------------- */
     const randomX = Math.floor(Math.random() * maxWidth);
     const randomY = Math.floor(Math.random() * maxHeight);
@@ -87,7 +101,4 @@ function moveButton() {
     noBtn.style.position = "absolute";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
-
-    /* Ensure button keeps its natural size */
-    noBtn.style.width = "auto";
 }

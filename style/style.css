@@ -31,12 +31,27 @@ body {
    Card-style layout for content
    ====================================================== */
 .container {
+    /* CRITICAL FIX: This traps the absolute button inside the card */
+    position: relative; 
+    
     text-align: center;
-    background: rgba(255, 255, 255, 0.8);
-    padding: 40px 60px;
-    border-radius: 20px;
-    box-shadow: 0 10px 25px rgba(0,0,0,0.1);
-    max-width: 90%;
+    background: rgba(255, 255, 255, 0.85); /* Slightly less transparent for readability */
+    padding: 50px 40px;
+    border-radius: 30px;
+    box-shadow: 0 15px 35px rgba(0,0,0,0.1);
+    
+    /* Responsive sizing */
+    width: 90%;
+    max-width: 450px;
+    
+    /* Ensures there is always enough height for the button to move */
+    min-height: 400px;
+    
+    /* Center content vertically */
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
 }
 
 /* ======================================================
@@ -46,8 +61,9 @@ body {
 h1 {
     font-family: 'Great Vibes', cursive;
     color: #d63384;
-    font-size: 3.5rem;
+    font-size: 3rem;
     margin-bottom: 30px;
+    line-height: 1.2;
 }
 
 /* ======================================================
@@ -56,10 +72,9 @@ h1 {
    ====================================================== */
 .button-container {
     display: flex;             /* Enables Flexbox layout */
-    flex-wrap: wrap;           /* Allows wrapping on small screens */
-    justify-content: center;   /* Centers buttons horizontally */
+    flex-direction: column;    /* Stack buttons vertically (Yes on top of No) */
+    align-items: center;       /* Centers buttons horizontally */
     gap: 20px;                 /* Space between buttons */
-    margin-top: 20px;
     width: 100%;
 }
 
@@ -68,18 +83,13 @@ h1 {
    Shared styling for all buttons
    ====================================================== */
 button {
-    flex: 1 1 auto;            /* Allows buttons to grow and shrink */
-    min-width: 120px;
-    max-width: 200px;
-
-    padding: 12px 24px;
-    font-size: 1.2rem;
+    padding: 15px 0;
+    font-size: 1.3rem;
 
     border: none;
     border-radius: 50px;
     cursor: pointer;
 
-    transition: all 0.3s ease; /* Smooth hover and resize animation */
     font-family: 'Poppins', sans-serif;
 
     /* Prevents text selection on mobile devices */
@@ -92,14 +102,16 @@ button {
    Primary call-to-action button
    ====================================================== */
 #yesBtn {
-    background-color: #ff4d6d;
+    background: linear-gradient(to right, #ff4d6d, #ff758f);
     color: white;
-    box-shadow: 0 4px 15px rgba(255, 77, 109, 0.4);
+    box-shadow: 0 8px 20px rgba(255, 77, 109, 0.3);
+    width: 85%; /* Wide and clickable */
+    transition: transform 0.2s ease, box-shadow 0.2s ease;
 }
 
 #yesBtn:hover {
-    transform: scale(1.1);
-    background-color: #d60036;
+    transform: scale(1.05);
+    box-shadow: 0 10px 25px rgba(255, 77, 109, 0.4);
 }
 
 /* ======================================================
@@ -110,7 +122,12 @@ button {
     background-color: #ffffff;
     color: #333;
     border: 2px solid #ddd;
+    box-shadow: 0 4px 10px rgba(0,0,0,0.05);
+    width: 50%; /* Smaller than Yes */
     z-index: 100; /* Keeps button above other elements when moving */
+    
+    /* SMOOTH MOVEMENT ANIMATION */
+    transition: top 0.4s ease, left 0.4s ease, background-color 0.2s;
 }
 
 #noBtn:hover {
@@ -124,21 +141,14 @@ button {
 @media (max-width: 600px) {
     .container {
         padding: 30px 20px;
-        width: 90%;
+        min-height: 350px;
     }
 
     h1 {
-        font-size: 2rem; /* Smaller heading for mobile screens */
+        font-size: 2.2rem; /* Smaller heading for mobile screens */
     }
 
-    /* Make YES button larger and easier to tap on phones */
-    #yesBtn {
-        width: 100%;
-        max-width: none;
-    }
-
-    /* Keep NO button compact so it can move freely */
-    #noBtn {
-        flex: 0 1 auto;
+    button {
+        font-size: 1.1rem;
     }
 }

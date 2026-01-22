@@ -1,58 +1,88 @@
-// src/script.js
+// ======================================================
+// MAIN ACTION: ACCEPT PROPOSAL
+// Triggered when the YES button is clicked
+// ======================================================
 function acceptProposal() {
-    // 1. Change the text and hide buttons
-    document.getElementById("question").innerHTML = "Yay! I knew you'd say yes! ❤️";
-    document.querySelector(".button-container").style.display = "none";
-    
-    // 2. Change background to a happy pink
-    document.body.style.backgroundColor = "#ffc1cc";
-    
-    // 3. LAUNCH CONFETTI! 
-    // We launch it for 3 seconds
-    var duration = 2 * 1000;
-    var end = Date.now() + duration;
 
+    /* --------------------------------------------------
+       STEP 1: Update the message and hide the buttons
+       -------------------------------------------------- */
+    document.getElementById("question").innerHTML =
+        "Yay! I knew you'd say yes! ❤️";
+    document.querySelector(".button-container").style.display = "none";
+
+    /* --------------------------------------------------
+       STEP 2: Change the background to a happier color
+       -------------------------------------------------- */
+    document.body.style.backgroundColor = "#ffc1cc";
+
+    /* --------------------------------------------------
+       STEP 3: CONFETTI CELEBRATION 🎉
+       Runs for a limited duration
+       -------------------------------------------------- */
+    var duration = 2 * 1000;           // Confetti duration (2 seconds)
+    var end = Date.now() + duration;   // Time when confetti should stop
+
+    // Recursive animation loop
     (function frame() {
-        // Launch a few confetti from the left edge
+
+        /* Launch confetti from the LEFT side */
         confetti({
             particleCount: 7,
             angle: 60,
             spread: 55,
             origin: { x: 0 },
-            colors: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee']
+            colors: [
+                '#ff0000', '#ffa500', '#ffff00',
+                '#008000', '#0000ff', '#4b0082', '#ee82ee'
+            ]
         });
-        
-        // Launch a few confetti from the right edge
+
+        /* Launch confetti from the RIGHT side */
         confetti({
             particleCount: 7,
             angle: 120,
             spread: 55,
             origin: { x: 1 },
-            colors: ['#ff0000', '#ffa500', '#ffff00', '#008000', '#0000ff', '#4b0082', '#ee82ee']
+            colors: [
+                '#ff0000', '#ffa500', '#ffff00',
+                '#008000', '#0000ff', '#4b0082', '#ee82ee'
+            ]
         });
 
-        // Keep firing until time is up
+        /* Continue animation until time expires */
         if (Date.now() < end) {
             requestAnimationFrame(frame);
         }
     }());
 }
 
+// ======================================================
+// NO BUTTON MOVEMENT
+// Makes the NO button dodge the cursor
+// ======================================================
 function moveButton() {
     const noBtn = document.getElementById("noBtn");
-    
-    // Get the window width and height (minus a little margin for safety)
-    const maxWidth = window.innerWidth - noBtn.offsetWidth - 20; // 20px buffer
+
+    /* --------------------------------------------------
+       Calculate safe movement boundaries
+       -------------------------------------------------- */
+    const maxWidth = window.innerWidth - noBtn.offsetWidth - 20;
     const maxHeight = window.innerHeight - noBtn.offsetHeight - 20;
 
-    // Generate random positions
+    /* --------------------------------------------------
+       Generate random screen positions
+       -------------------------------------------------- */
     const randomX = Math.floor(Math.random() * maxWidth);
     const randomY = Math.floor(Math.random() * maxHeight);
 
-    // Apply new position
+    /* --------------------------------------------------
+       Apply new position to the NO button
+       -------------------------------------------------- */
     noBtn.style.position = "absolute";
     noBtn.style.left = randomX + "px";
     noBtn.style.top = randomY + "px";
 
+    /* Ensure button keeps its natural size */
     noBtn.style.width = "auto";
 }

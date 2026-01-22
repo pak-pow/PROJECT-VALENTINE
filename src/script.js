@@ -10,8 +10,11 @@ let scaleFactor = 1; // Tracks how much the YES button has grown
 function acceptProposal() {
     const sound = document.getElementById("yesSound");
     sound.currentTime = 0; // Restart sound if clicked again
-    sound.play();
-
+    
+    if (sound) {
+        sound.currentTime = 1; // Skip the first second
+        sound.play();
+    }
     /* --------------------------------------------------
        STEP 1: Update the message and hide the buttons
        -------------------------------------------------- */

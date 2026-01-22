@@ -1,26 +1,71 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+    <!-- ==================================================
+         DOCUMENT METADATA
+         Defines character encoding and responsive behavior
+         ================================================== -->
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.2" />
+
+    <!-- Page title shown in browser tab -->
     <title>Be My Valentine?</title>
-    
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&display=swap" rel="stylesheet">
-    
+
+    <!-- ==================================================
+         GOOGLE FONTS
+         Poppins for body text, Great Vibes for heading
+         ================================================== -->
+    <link
+        href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;600&family=Great+Vibes&display=swap"
+        rel="stylesheet"
+    >
+
+    <!-- ==================================================
+         EXTERNAL STYLESHEET
+         ================================================== -->
     <link rel="stylesheet" href="../style/style.css">
 </head>
+
 <body>
 
+    <!-- ==================================================
+         MAIN CONTENT CONTAINER
+         Centers the proposal card
+         ================================================== -->
     <div class="container">
+
+        <!-- Proposal question (updated dynamically via JavaScript) -->
         <h1 id="question">Can you please be my valentine?</h1>
-        
+
+        <!-- ==================================================
+             BUTTON GROUP
+             YES triggers acceptance
+             NO moves away on interaction
+             ================================================== -->
         <div class="button-container">
             <button id="yesBtn" onclick="acceptProposal()">Yes</button>
-            <button id="noBtn" onmouseover="moveButton()" ontouchstart="moveButton()">No</button>
+
+            <!-- 
+                NO button avoids being clicked:
+                - onmouseover for desktop
+                - ontouchstart for mobile
+            -->
+            <button id="noBtn"
+                    onmouseover="moveButton()"
+                    ontouchstart="moveButton()">
+                No
+            </button>
         </div>
     </div>
 
+    <!-- ==================================================
+         EXTERNAL JAVASCRIPT LIBRARIES
+         ================================================== -->
+
+    <!-- Confetti animation library -->
     <script src="https://cdn.jsdelivr.net/npm/canvas-confetti@1.9.2/dist/confetti.browser.min.js"></script>
+
+    <!-- Custom JavaScript logic -->
     <script src="script.js"></script>
 
 </body>
